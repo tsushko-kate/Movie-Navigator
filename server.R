@@ -16,7 +16,7 @@ if (FALSE) {
 
 
 # Set up handles to database tables on app start
-db <- src_sqlite("~/Movie Trial/data/Omdb_tomatoes_movies.db")
+db <- src_sqlite("data/Omdb_tomatoes_movies.db")
 tomatoes <- tbl(db, "tomatoes")
 omdb <- tbl(db, "omdb")
 
@@ -114,10 +114,12 @@ function(input, output, session) {
 
   output$movies_chosen <- renderText({ nrow(mov()) })
 
+ #Provides data table of the omdb table that can be narrowed down using the search bar.
   output$one <- DT::renderDataTable(
     DT::datatable(data<- as.data.frame(omdb), options = list(pageLength = 25))
   )
 
+ #Provides data table of the combined tomatoe and omdb tables
   output$two <- DT::renderDataTable(
     DT::datatable(data<- as.data.frame(movies_combined), options = list(pageLength = 25))
   )
